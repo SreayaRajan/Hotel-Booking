@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Booking - Register</title>
     <style>
-        /* General Page Styling */
+        /* General Styling */
         body {
             font-family: 'Poppins', sans-serif;
-            background: url('https://source.unsplash.com/1600x900/?hotel,resort') no-repeat center center/cover;
+            background: url('https://source.unsplash.com/1600x900/?luxury,hotel') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,15 +25,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
         }
 
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            width: 320px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            width: 350px;
             text-align: center;
             position: relative;
             z-index: 1;
@@ -42,7 +42,7 @@
         h2 {
             margin-bottom: 15px;
             color: #222;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
         }
 
@@ -56,7 +56,7 @@
         label {
             text-align: left;
             font-weight: 500;
-            color: #444;
+            color: #333;
             font-size: 14px;
         }
 
@@ -64,10 +64,10 @@
             width: 100%;
             padding: 10px;
             border: 1px solid #bbb;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 14px;
             background: #fff;
-            transition: all 0.3s;
+            transition: 0.3s ease-in-out;
         }
 
         input:focus {
@@ -80,13 +80,13 @@
         button {
             background: #007bff;
             color: white;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
 
         button:hover {
@@ -96,18 +96,26 @@
         /* Link Styling */
         .login-link {
             display: block;
-            margin-top: 10px;
+            margin-top: 12px;
             text-decoration: none;
             color: #007bff;
             font-weight: bold;
             font-size: 14px;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
 
         .login-link:hover {
             text-decoration: underline;
             color: #0056b3;
         }
+
+        /* Error Message */
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -115,28 +123,168 @@
         <h2>Register for a Luxurious Stay</h2>
         <form action="{% url 'register' %}" method="POST">
             {% csrf_token %}
-            
-            <label>First Name:</label>
-            <input type="text" name="first_name" required>
-        
-            <label>Last Name:</label>
-            <input type="text" name="last_name" required>
-        
-            <label>Phone:</label>
-            <input type="text" name="phone_number">
-        
+
+            <label>Username:</label>
+            <input type="text" name="username" required>
+
             <label>Email:</label>
             <input type="email" name="email" required>
-        
+
+            <label>Phone Number:</label>
+            <input type="text" name="number" required>
+
             <label>Password:</label>
             <input type="password" name="password" required>
-        
-            <label>Confirm Password:</label>
-            <input type="password" name="confirm_password" required>
-        
+
             <button type="submit">Create Account</button>
         </form>
         <a class="login-link" href="{% url 'login' %}">Already have an account? Login</a>
     </div>
 </body>
-</html>
+</html>   {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Booking - Register</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Poppins', sans-serif;
+      /* Changed background to match login page */
+      background: linear-gradient(#141e30, #243b55);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      /* Removed position: relative; and overlay */
+    }
+
+    .container {
+      /* Changed container background to match login box */
+      background: rgba(0, 0, 0, 0.8);
+      padding: 25px;
+      border-radius: 10px;
+      /* Adjusted box-shadow to be similar in tone */
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+      width: 350px;
+      text-align: center;
+      /* Removed z-index as overlay is no longer used */
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      /* Changed text color from dark (#222) to white for contrast */
+      color: #fff;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    /* Form Styling */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    label {
+      text-align: left;
+      font-weight: 500;
+      /* Changed label color to white */
+      color: #fff;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      /* Changed input border color to blue (#03e9f4) */
+      border: 1px solid #03e9f4;
+      border-radius: 6px;
+      font-size: 14px;
+      /* Kept white background to preserve input readability */
+      background: #fff;
+      transition: 0.3s ease-in-out;
+    }
+
+    input:focus {
+      /* Changed focus border color to blue */
+      border-color: #03e9f4;
+      outline: none;
+      /* Updated box-shadow with blue hue */
+      box-shadow: 0px 0px 5px rgba(3, 233, 244, 0.5);
+    }
+
+    /* Button Styling */
+    button {
+      /* Changed button background to blue (#03e9f4) */
+      background: #03e9f4;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      /* Keeping hover state the same blue */
+      background: #03e9f4;
+    }
+
+    /* Link Styling */
+    .login-link {
+      display: block;
+      margin-top: 12px;
+      text-decoration: none;
+      /* Changed link color to blue (#03e9f4) */
+      color: #03e9f4;
+      font-weight: bold;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .login-link:hover {
+      text-decoration: underline;
+      /* Keeping hover state the same blue */
+      color: #03e9f4;
+    }
+
+    /* Error Message */
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Register for a Luxurious Stay</h2>
+    <form action="{% url 'register' %}" method="POST">
+      {% csrf_token %}
+
+      <label>Username:</label>
+      <input type="text" name="username" required>
+
+      <label>Email:</label>
+      <input type="email" name="email" required>
+
+      <label>Phone Number:</label>
+      <input type="text" name="number" required>
+
+      <label>Password:</label>
+      <input type="password" name="password" required>
+
+      <button type="submit">Create Account</button>
+    </form>
+    <a class="login-link" href="{% url 'login' %}">Already have an account? Login</a>
+  </div>
+</body>
+</html> 

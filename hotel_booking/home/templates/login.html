@@ -1,10 +1,13 @@
- <!DOCTYPE html>
+
+{% comment %} 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Booking - Login</title>
     <style>
+        /* Full Page Styling */
         html, body {
             height: 100%;
             margin: 0;
@@ -15,13 +18,14 @@
             align-items: center;
         }
 
+        /* Login Box */
         .login-box {
             width: 400px;
             padding: 40px;
             background: rgba(0, 0, 0, 0.8);
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
             border-radius: 10px;
-            text-align: center;
+            text-align: center; 
         }
 
         .login-box h2 {
@@ -29,6 +33,7 @@
             margin-bottom: 20px;
         }
 
+        /* Input Fields */
         .user-box {
             position: relative;
             margin-bottom: 30px;
@@ -61,6 +66,7 @@
             font-size: 12px;
         }
 
+        /* Login Button */
         .login-btn {
             display: block;
             width: 100%;
@@ -83,6 +89,14 @@
             box-shadow: 0 0 10px #03e9f4;
         }
 
+        /* Error Message */
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Links */
         .forgot-password, .register-link {
             display: block;
             margin-top: 10px;
@@ -100,11 +114,19 @@
 <body>
     <div class="login-box">
         <h2>Login</h2>
+
+        <!-- Show Error Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
         <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
             
             <div class="user-box">
-                <input type="text" name="email" required>  <!-- Change 'identifier' to 'email' -->
+                <input type="text" name="email" required> 
                 <label>Email</label>
             </div>
         
@@ -119,6 +141,148 @@
             <a class="register-link" href="{% url 'register' %}">Don't have an account? Register</a>
         </form>
     </div>
+</body> 
+</html>   {% endcomment %}
+
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking - Login</title>
+    <style>
+        /* Full Page Styling */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(#141e30, #243b55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Login Box */
+        .login-box {
+            width: 400px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        /* Input Fields */
+        .user-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .user-box label {
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .user-box input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #03e9f4; /* Text color */
+            border: none;
+            border-bottom: 1px solid #03e9f4; /* Underline color */
+            outline: none;
+            background: transparent;
+        }
+
+        .user-box input::placeholder {
+            color: #03e9f4; /* Placeholder text color */
+            opacity: 0.7;
+        }
+
+        /* Login Button */
+        .login-btn {
+            display: block;
+            width: 100%;
+            background: transparent;
+            color: #03e9f4;
+            padding: 12px;
+            border: 1px solid #03e9f4;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn:hover {
+            background: #03e9f4;
+            color: white;
+            box-shadow: 0 0 10px #03e9f4;
+        }
+
+        /* Error Message */
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Links */
+        .forgot-password, .register-link {
+            display: block;
+            margin-top: 10px;
+            color: #03e9f4;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .forgot-password:hover, .register-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <!-- Show Error Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            
+            <div class="user-box">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="Enter your email" required> 
+            </div>
+        
+            <div class="user-box">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+        
+            <button type="submit" class="login-btn">Login</button>
+        
+            <a class="forgot-password" href="#">Forgot Password?</a>
+            <a class="register-link" href="{% url 'register' %}">Don't have an account? Register</a>
+        </form>
+    </div>
 </body>
 </html> 
-

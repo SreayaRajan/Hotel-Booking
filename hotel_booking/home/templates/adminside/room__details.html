@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        header { background: #212121; color: white; padding: 20px; text-align: center; }
+        main { padding: 20px; text-align: center; }
+        table { width: 80%; margin: auto; border-collapse: collapse; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #ddd; }
+        th { background-color: #212121; color: white; }
+        img { width: 80px; height: auto; border-radius: 5px; }
+        a { display: block; margin: 20px auto; text-align: center; font-size: 18px; font-weight: bold; color: blue; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Room Details</h1>
+    </header>
+
+    <main>
+        {% comment %} <a href="{% url 'manage_room' %}">Back to Manage Room</a> {% endcomment %}
+
+        <table>
+            <tr>
+                <th>Sl No.</th>
+                <th>Location</th>
+                <th>Subcategory</th>
+                <th>Room Rent</th>
+                <th>Room Details</th>
+                <th>Available Rooms</th>
+                <th>Room Images</th>
+                <th>Actions</th>
+            </tr>
+            {% for room in rooms %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ room.location.location_name }}</td>
+                <td>{{ room.subcategory.subcategory_name }}</td>
+                <td>{{ room.room_rent }}</td>
+                <td>{{ room.room_details }}</td>
+                <td>{{ room.available_room }}</td>
+                <td>
+                    {% for image in room.images.all %}
+                    <img src="{{ image.image.url }}" alt="Room Image" onerror="this.style.display='none'">
+                    {% endfor %}
+                </td>
+                <td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_id" value="{{ room.id }}">
+                        <button type="submit" name="delete_room" style="background-color: red;">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </main>
+</body>
+</html>

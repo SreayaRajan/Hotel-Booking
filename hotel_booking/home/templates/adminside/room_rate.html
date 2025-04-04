@@ -1,0 +1,138 @@
+ {% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Manage Room</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        header { background: #212121; color: white; padding: 20px; text-align: center; }
+        main { padding: 20px; text-align: center; }
+        form { display: flex; flex-direction: column; gap: 10px; background: white; padding: 20px; border-radius: 10px; width: 50%; margin: auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        select, input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; width: 100%; }
+        button { padding: 10px 15px; background-color: orange; color: white; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Manage Room</h1>
+    </header>
+
+    <main>
+        <h2>Manage Room and Rates</h2> {% endcomment %}
+       
+            
+            {% comment %} <select name="location" required>
+                <option value="">Select Location</option>
+                {% for location in locations %}
+                <option value="{{ location.id }}">{{ location.location_name }}</option>
+                {% endfor %}
+            </select>
+        
+            <select name="subcategory" required>
+                <option value="">Select Subcategory</option>
+                {% for subcategory in subcategories %}
+                <option value="{{ subcategory.id }}">{{ subcategory.subcategory_name }}</option>
+                {% endfor %}
+            </select> {% endcomment %}
+           
+         
+            
+            <!-- Room Management Form -->
+            {% comment %} <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            
+                <!-- Preselected Location -->
+                <label for="location_fixed">Location:</label>
+                <select name="location" id="location_fixed" required>
+                    <option value="">Select Location</option>
+                    {% for location in locations %}
+                    <option value="{{ location.id }}" {% if location.id|stringformat:"s" == selected_location_id %}selected{% endif %}>
+                        {{ location.location_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            
+                <!-- Subcategory Dropdown (Filtered by Selected Location) -->
+                <label for="subcategory">Select Subcategory:</label>
+                <select name="subcategory" id="subcategory" required>
+                    <option value="">Select Subcategory</option>
+                    {% for subcategory in subcategories %}
+                    <option value="{{ subcategory.id }}">{{ subcategory.subcategory_name }}</option>
+                    {% endfor %}
+                </select>            <input type="number" name="room_rent" placeholder="Room Rent" required>
+            <input type="text" name="room_details" placeholder="Room Details" required>
+            <input type="number" name="available_room" placeholder="Available Rooms" required>
+            <input type="file" name="room_images" multiple required>  <!-- Multiple image upload -->
+            
+            <button type="submit" name="add_room">Add Room</button>
+        </form> {% endcomment %}
+{% comment %} 
+      <a href="{% url 'room_details' %}" style="display: block; margin: 20px auto; text-align: center; font-size: 18px; font-weight: bold; color: blue; text-decoration: none;">
+            View Room Details
+        </a> 
+     </main>
+</body>
+</html>  {% endcomment %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Manage Room</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        header { background: #212121; color: white; padding: 20px; text-align: center; }
+        main { padding: 20px; text-align: center; }
+        form { display: flex; flex-direction: column; gap: 10px; background: white; padding: 20px; border-radius: 10px; width: 50%; margin: auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        select, input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; width: 100%; }
+        button { padding: 10px 15px; background-color: orange; color: white; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Manage Room</h1>
+    </header>
+
+    <main>
+        <h2>Manage Room and Rates</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <label for="location">Location:</label>
+            <select name="location" id="location" required onchange="this.form.submit()">
+                <option value="">Select Location</option>
+                {% for location in locations %}
+                <option value="{{ location.id }}" 
+                    {% if location.id|stringformat:"s" == selected_location_id %}selected{% endif %}>
+                    {{ location.location_name }}
+                </option>
+                {% endfor %}
+            </select>
+            
+            <label for="subcategory">Subcategory:</label>
+            <select name="subcategory" id="subcategory" required {% if not subcategories %}disabled{% endif %}>
+                <option value="">Select Subcategory</option>
+                {% for subcategory in subcategories %}
+                <option value="{{ subcategory.id }}">{{ subcategory.subcategory_name }}</option>
+                {% endfor %}
+            </select>
+            
+            <input type="number" name="room_rent" placeholder="Room Rent" required>
+            <input type="text" name="room_details" placeholder="Room Details" required>
+            <input type="number" name="available_room" placeholder="Available Rooms" required>
+            <input type="file" name="room_images" multiple required>
+            
+            <button type="submit" name="add_room">Add Room</button>
+        </form>
+
+        <a href="{% url 'room_details' %}" style="display: block; margin: 20px auto; text-align: center; font-size: 18px; font-weight: bold; color: blue; text-decoration: none;">
+            View Room Details
+        </a>
+    </main>
+</body>
+</html>
